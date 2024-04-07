@@ -10,9 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 enum Status: string
 {
-    case OPEN = 'O';
-    case PENDING = 'P';
-    case CLOSED = 'C';
+    case OPEN = 'Open';
+    case PENDING = 'Pending';
+    case CLOSED = 'Closed';
 }
 
 #[ORM\Entity(repositoryClass: IssueRepository::class)]
