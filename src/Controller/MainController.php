@@ -35,7 +35,8 @@ class MainController extends AbstractController
     #[Route('/issues', name: 'Issues')]
     public function issues(): Response
     {
-        return $this->render('issue/index.twig',
+        return $this->render(
+            'issue/index.twig',
             ['issues' => $this->issueRepository->findAll()]
         );
     }
@@ -50,15 +51,16 @@ class MainController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->entityManager->persist($issue);
             $this->entityManager->flush();
 
             $this->addFlash('notify', "Issue Inserted Successfully");
+
             return $this->redirectToRoute("Issues");
         }
 
-        return $this->render('issue/create.twig',
+        return $this->render(
+            'issue/create.twig',
             ['form' => $form->createView(),]
         );
     }
@@ -73,7 +75,6 @@ class MainController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $issue->setUpdatedAt(new DateTimeImmutable());
 
             $this->entityManager->persist($issue);
@@ -86,11 +87,12 @@ class MainController extends AbstractController
         if ($issue) {
             return $this->render('issue/edit.twig', [
                     'form' => $form->createView(),
-                    'id' => $issue->getId()]
+                    'id' => $issue->getId(),
+                ]
             );
-        } else
+        } else {
             throw $this->createNotFoundException("Issue not found!");
-
+        }
     }
 
     #[Route('/issue/delete/{id}', name: 'Delete')]
@@ -105,8 +107,9 @@ class MainController extends AbstractController
             $this->addFlash('notify', "Issue Deleted Successfully");
 
             return $this->redirectToRoute('Issues');
-        } else
+        } else {
             throw $this->createNotFoundException("Issue not found!");
+        }
     }
 
 }
