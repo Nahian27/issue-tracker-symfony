@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Edit issues{% endblock %}
+{% block body %}
+    <h1 class="my-4">Edit an issue</h1>
+    {% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
+    {{ form(form) }}
+    <form method="post" action="{{ path('Delete', {'id' : id}) }}">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+{% endblock %}

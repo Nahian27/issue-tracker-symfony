@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Issues{% endblock %}
+
+{# TODO: Show status in the table #}
+
+{% block body %}
+    {% for notify in app.flashes('notify') %}
+        <div class="alert alert-success my-2">{{ notify }}</div>
+    {% endfor %}
+    <a href="{{ path('Create') }}" class="btn btn-primary">New issue</a>
+    {% if issues %}
+        <h1>All Issues</h1>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                {#                <th scope="col">Status</th> #}
+                <th scope="col">Description</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Updated At</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for issue in issues | sort %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td><a href="{{ path('Edit',{id:issue.id}) }}">{{ issue.title }}</a></td>
+                    {#                    <td>{{ issue.status | e }} </td> #}
+                    <td>{{ issue.description }}</td>
+                    <td>{{ issue.createdAt | format_datetime(locale='en', timezone='Asia/Dhaka') }}</td>
+                    <td>
+                        {% if issue.updatedAt %}{{ issue.updatedAt | format_datetime(locale='en', timezone='Asia/Dhaka') }}
+                        {% else %} n/a
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %} <h1>No Issues!</h1>
+    {% endif %}
+{% endblock %}
