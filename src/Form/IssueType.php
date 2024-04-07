@@ -22,8 +22,8 @@ class IssueType extends AbstractType
             ->add('status', ChoiceType::class, [
                 'choices' => [
                     'Open' => Status::OPEN,
-                    'Closed' => Status::CLOSED,
                     'Pending' => Status::PENDING,
+                    'Closed' => Status::CLOSED,
                 ],
                 'expanded' => true,
                 'multiple' => false,
